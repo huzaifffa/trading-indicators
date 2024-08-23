@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Analysis</title>
+</head>
+<body>
+    <h1>Stock Analysis</h1>
+    <form method="POST">
+        <!-- Ticker Dropdown -->
+        <label for="ticker">Select Ticker:</label>
+        <select id="ticker" name="ticker" required>
+            {% for ticker in tickers %}
+                <option value="{{ ticker }}">{{ ticker }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+
+        <!-- Time Period Dropdown -->
+        <label for="time_period">Select Time Period:</label>
+        <select id="time_period" name="time_period" required>
+            {% for period, days in time_periods.items() %}
+                <option value="{{ days }}">{{ period }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+
+        <!-- Interval Dropdown -->
+        <label for="interval">Select Interval:</label>
+        <select id="interval" name="interval" required>
+            {% for interval in intervals %}
+                <option value="{{ interval }}">{{ interval }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+
+        <!-- Indicators Checkboxes -->
+        <label>Choose Indicators:</label><br>
+        <input type="checkbox" id="supertrend" name="supertrend">
+        <label for="supertrend">Supertrend</label><br>
+        <input type="checkbox" id="macd" name="macd">
+        <label for="macd">MACD</label><br>
+        <input type="checkbox" id="ma" name="ma">
+        <label for="ma">Moving Averages</label><br><br>
+
+        <!-- Submit Button -->
+        <button type="submit">Generate Chart</button>
+    </form>
+    
+    <!-- Render the chart -->
+    {% if graph %}
+        <h2>Chart</h2>
+        {{ graph | safe }}
+    {% endif %}
+</body>
+</html>
